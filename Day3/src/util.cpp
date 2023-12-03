@@ -3,7 +3,7 @@
 //
 #include "util.h"
 
-std::vector<std::string> parseLines(const char* input_file) {
+std::vector<std::string> parseLines(const char *input_file) {
     std::string line;
     std::vector<std::string> lines{};
     std::ifstream infile(input_file);
@@ -64,7 +64,7 @@ std::vector<std::vector<std::set<int>>> buildField(int width, int height) {
     for (int x = 0; x < width; x++) {
         field[x] = std::vector<std::set<int>>(height);
         for (int y = 0; y < height; y++) {
-            field[x][y] = std::set<int>{};
+            field[x][y] = std::set < int > {};
         }
     }
     return field;
