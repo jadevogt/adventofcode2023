@@ -1,8 +1,0 @@
-# ninja log v5
-3	45	1701559155933492787	CMakeFiles/daytwo.dir/src/game.cpp.o	d22cf07e98dbe085
-45	89	1701559155977866366	daytwo	b7efa153c07781ee
-0	543	1701559008052869699	CMakeFiles/daytwo.dir/src/daytwo.cpp.o	9e36cba60bd90c3e
-0	56	1701561235902095071	build.ninja	f943869028ac35da
-1	591	1701561236498269799	CMakeFiles/daytwo.dir/src/daytwo.cpp.o	9e36cba60bd90c3e
-2	607	1701561236514109725	CMakeFiles/daytwo.dir/src/game.cpp.o	d22cf07e98dbe085
-607	659	1701561236568903975	daytwo	b7efa153c07781ee
