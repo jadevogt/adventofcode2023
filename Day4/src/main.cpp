@@ -11,48 +11,36 @@ int main() {
 
 void partTwo() {
     auto lines = readLines("input.txt");
-    std::vector<size_t> copyCount{};
+    std::vector<size_t> copyCount(lines.size());
+    std::fill(copyCount.begin(), copyCount.end(), 1);
     for (size_t i = 0; i < lines.size(); i++) {
-        copyCount.push_back(1);
-    }
-    for (size_t i = 0; i < copyCount.size(); i++) {
-        auto x = get_numbers(lines[i]);
+        auto numberSets = getNumbers(lines[i]);
         int matches = 1;
-        for (auto n : x.first) {
-            if (x.second.contains(n)) {
-                copyCount[i + matches] += (1 * copyCount[i]);
-                matches++;
+        for (auto winningNumber : numberSets.first) {
+            if (numberSets.second.contains(winningNumber)) {
+                copyCount[i + matches++] += (1 * copyCount[i]);
             }
         }
     }
     long long sum = 0;
-    for (size_t i = 0; i < copyCount.size(); i++) {
-        sum += copyCount[i];
+    for (unsigned long i : copyCount) {
+        sum += static_cast<long long>(i);
     }
     std::cout << "Part Two: " << sum << '\n';
 }
 
 void partOne() {
     auto lines = readLines("input.txt");
-    std::vector<int> copyCount{};
-    for (size_t i = 0; i < lines.size(); i++) {
-        copyCount.push_back(1);
-    }
     long long sum{0};
     for (auto line : lines) {
-        long long tmp_sum = 0;
-        auto x = get_numbers(line);
-        for (auto n : x.first) {
-            if (x.second.contains(n)) {
-                if (tmp_sum == 0) {
-                    tmp_sum += 1;
-                }
-                else {
-                    tmp_sum *= 2;
-                }
+        long long tempSum = 0;
+        auto numberSets = getNumbers(line);
+        for (auto n : numberSets.first) {
+            if (numberSets.second.contains(n)) {
+                tempSum = tempSum == 0 ? tempSum + 1 : tempSum * 2;
             }
         }
-        sum += tmp_sum;
+        sum += tempSum;
     }
     std::cout << "Part One: " << sum << '\n';
 }

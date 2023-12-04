@@ -11,5 +11,5 @@
 #include <utility>
 #include <sstream>
 std::vector<std::string> readLines(const std::string &filename);
-std::pair<std::set<int>, std::set<int>> get_numbers(std::string &inputLine);
+std::pair<std::set<int>, std::set<int>> getNumbers(std::string &inputLine);
 #endif //DAY4_UTIL_H
