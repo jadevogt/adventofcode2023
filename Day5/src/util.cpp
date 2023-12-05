@@ -55,3 +55,63 @@ std::pair<std::set<int>, std::set<int>> getNumbers(std::string &inputLine) {
     }
     return nums;
 }
+
+long long convertValue(const std::vector<mapEntry> &entries, long long inputNumber) {
+    auto num = inputNumber;
+    for (auto entry : entries) {
+        if (num >= entry.sourceRangeStart && num < entry.sourceRangeStart + entry.rangeLength) {
+            num = entry.destinationRangeStart + (inputNumber - entry.sourceRangeStart);
+            return num;
+        }
+    }
+    return num;
+}
+
+long long convertValueBackwards(const std::vector<mapEntry> &entries, long long inputNumber) {
+    auto num = inputNumber;
+    for (auto entry : entries) {
+        if (num >= entry.destinationRangeStart && num < entry.destinationRangeStart + entry.rangeLength) {
+            num = entry.sourceRangeStart + (inputNumber - entry.destinationRangeStart);
+            return num;
+        }
+    }
+    return num;
+}
+
+std::pair<std::vector<long long>, std::vector<std::vector<mapEntry>>> getMaps(const std::string& filename) {
+    std::ifstream infile;
+    std::cout << filename;
+    infile.open(filename);
+    std::string currentLine;
+    std::vector<std::vector<mapEntry>> maps{};
+    std::vector<mapEntry> currentMaps{};
+    std::vector<long long> seeds;
+    long long currentSeed = 0;
+    while (std::getline(infile, currentLine)) {
+        if (currentLine.starts_with("seeds: ")) {
+            continue;
+        }
+        if (!isNumeric(currentLine[0]) && !currentMaps.empty()) {
+            maps.push_back(currentMaps);
+            currentMaps = std::vector<mapEntry>{};
+            continue;
+        }
+        if (!isNumeric(currentLine[0])) {
+            continue;
+        }
+        currentMaps.push_back(mapFromLine(currentLine));
+    }
+    maps.push_back(currentMaps);
+    return std::pair<std::vector<long long>, std::vector<std::vector<mapEntry>>>{seeds, maps};
+}
+
+mapEntry mapFromLine(const std::string& inputLine) {
+    long long dest;
+    long long src;
+    long long len;
+    std::stringstream entryStream{inputLine};
+    entryStream >> dest;
+    entryStream >> src;
+    entryStream >> len;
+    return mapEntry{dest, src, len};
+}
